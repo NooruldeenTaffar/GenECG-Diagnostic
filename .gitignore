@@ -1,0 +1,22 @@
+# data
+Data/Raw/
+Data/Precessed/
+Data/Processed/
+
+# outputs
+outputs/
+checkpoints/
+runs/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# mac
+.DS_Store
+
+# vscode
+.vscode/
+
