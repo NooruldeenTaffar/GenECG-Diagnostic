@@ -1,0 +1,21 @@
+path: . # project root
+train: data/Raw/GenECG/Dataset_A_ECGs_without_imperfections/00000 # Using first bucket for initial train
+val: data/Raw/GenECG/Dataset_A_ECGs_without_imperfections/00000   # Use same for initial test run
+
+# Labels are in data/Processed/YOLO_Labels
+# Note: YOLO usually expects images and labels in folders with the same name, 
+# but we can point to our specific processed directory in the training script.
+
+names:
+  0: Lead_I
+  1: Lead_II
+  2: Lead_III
+  3: Lead_aVR
+  4: Lead_aVL
+  5: Lead_aVF
+  6: Lead_V1
+  7: Lead_V2
+  8: Lead_V3
+  9: Lead_V4
+  10: Lead_V5
+  11: Lead_V6

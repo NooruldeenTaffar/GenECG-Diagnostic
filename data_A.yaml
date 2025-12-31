@@ -1,0 +1,18 @@
+path: "/Volumes/Noori SSD/Applications/GenECG-Diagnostic/data/Raw/GenECG/Dataset_A_ECGs_without_imperfections"
+train: images
+val: images
+
+nc: 12
+names:
+  0: Lead_I
+  1: Lead_II
+  2: Lead_III
+  3: Lead_aVR
+  4: Lead_aVL
+  5: Lead_aVF
+  6: Lead_V1
+  7: Lead_V2
+  8: Lead_V3
+  9: Lead_V4
+  10: Lead_V5
+  11: Lead_V6

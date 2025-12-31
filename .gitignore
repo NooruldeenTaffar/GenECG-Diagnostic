@@ -1,22 +1,10 @@
-# data
-Data/Raw/
-Data/Precessed/
-Data/Processed/
+# Ignore all PNG images anywhere in the project
+*.png
+**/*.png
 
-# outputs
-outputs/
-checkpoints/
+# Ignore training outputs and caches
 runs/
+*.cache
 
-# python
-__pycache__/
-*.pyc
-.venv/
-venv/
-
-# mac
-.DS_Store
-
-# vscode
-.vscode/
-
+# (Optional) Ignore the local data directory entirely
+data/Raw/

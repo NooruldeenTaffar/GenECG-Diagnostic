@@ -8,3 +8,5 @@ tqdm
 pyyaml
 matplotlib
 
+huggingface-hub
+python-dotenv
