@@ -1,3 +1,7 @@
+# Environment files with secrets - NEVER COMMIT
+.env
+.env.*
+
 # Ignore all PNG images anywhere in the project
 *.png
 **/*.png
