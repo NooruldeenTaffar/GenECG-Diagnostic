@@ -1,8 +1,13 @@
-path: "/Volumes/Noori SSD/Applications/GenECG-Diagnostic/data/Raw/GenECG/Dataset_A_ECGs_without_imperfections"
-train: images
-val: images
+# YOLO Dataset Configuration for Dataset A (ECGs without imperfections)
+# 12-Lead ECG Detection
 
-nc: 12
+path: .  # project root (use relative path for portability)
+train: data/Raw/GenECG/Dataset_A_ECGs_without_imperfections
+val: data/Raw/GenECG/Dataset_A_ECGs_without_imperfections
+
+# Labels location: data/Processed/YOLO_Labels/Dataset_A/
+
+nc: 12  # number of classes (12 ECG leads)
 names:
   0: Lead_I
   1: Lead_II
