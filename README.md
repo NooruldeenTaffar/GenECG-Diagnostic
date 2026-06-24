@@ -1,28 +1,22 @@
 # GenECG-Diagnostic
 
-## Overview
+## Problem
 
-**GenECG-Diagnostic** is a research-oriented pipeline for automated diagnosis of 12-lead ECG images using computer vision.
-The project uses the **GenECG** dataset and applies a **two-stage deep learning workflow**:
+Reading a 12-lead ECG image and turning it into a diagnosis is normally a two-step job for a clinician: find each of the 12 leads on the page, then read the waveform pattern across all of them to reach a diagnostic impression. This project automates both steps from a raw ECG image, with the goal of outputting standardised, machine-readable diagnostic codes (SNOMED-CT) rather than free text.
 
-1. **Lead localisation** using YOLOv8
-2. **Multi-label diagnosis** using a Vision Transformer (ViT) with SNOMED-CT outputs
+## Approach
 
----
+A two-stage computer vision pipeline:
 
-## Pipeline Summary
+1. **Lead localisation (YOLOv8/YOLO11)** – detects the 12 individual lead panels within a raw 3×4 grid ECG image.
+2. **Multi-label diagnosis (Vision Transformer)** – a `google/vit-base-patch16-224` backbone, fine-tuned to predict multiple SNOMED-CT diagnostic codes per ECG, trained with `BCEWithLogitsLoss` to allow more than one diagnosis per image.
 
 **Input:** Raw 12-lead ECG image (3×4 grid)
 **Output:** Probabilistic SNOMED-CT diagnostic predictions
 
-**Stages**
+## Status
 
-1. **Data acquisition** – Download GenECG from Hugging Face
-2. **YOLO label generation** – Heuristic 3×4 grid → 12 lead bounding boxes
-3. **YOLO training** – Detect individual ECG leads
-4. **ViT classification** – Multi-label diagnosis from ECG images
-
----
+Both stages have been trained end-to-end on the GenECG dataset, and `src/inference.py` runs a full image-to-diagnosis pass. Quantitative evaluation (mAP for lead detection, per-label F1/AUC for diagnosis) is tracked in the training notebook and is the next thing I want to formalise and report here.
 
 ## Repository Structure
 
@@ -46,8 +40,6 @@ The project uses the **GenECG** dataset and applies a **two-stage deep learning 
 └── README.md
 ```
 
----
-
 ## Setup
 
 ```bash
@@ -67,8 +59,6 @@ Download the dataset:
 python src/Data_pipeline/download_data.py
 ```
 
----
-
 ## YOLO Label Generation
 
 Generate bounding-box labels for ECG leads:
@@ -79,8 +69,6 @@ python src/Data_pipeline/run_mass_label_generation.py \
   --output-dir data/Processed/YOLO_Labels
 ```
 
----
-
 ## YOLO Training
 
 ```bash
@@ -89,8 +77,6 @@ python src/Training/train_yolo.py \
   --epochs 50 \
   --batch 16
 ```
-
----
 
 ## Inference (ViT)
 
@@ -103,18 +89,20 @@ python src/inference.py path/to/ecg.png \
 
 Output includes:
 
-* SNOMED-CT codes
-* Prediction probabilities
-* Threshold-based positives
+- SNOMED-CT codes
+- Prediction probabilities
+- Threshold-based positives
 
----
+## Skills Demonstrated
+
+- Two-stage computer vision pipeline design (object detection feeding a downstream classifier)
+- Object detection with YOLOv8/YOLO11 on a custom heuristic-labelled dataset
+- Vision Transformer fine-tuning for multi-label classification
+- Mapping model outputs to a real clinical coding standard (SNOMED-CT)
+- End-to-end ML engineering: data acquisition, label generation, training, and a runnable inference script
 
 ## Notes
 
-* Multi-label classification (`BCEWithLogitsLoss`)
-* ViT backbone: `google/vit-base-patch16-224`
-* Dataset includes ECGs **with and without imperfections**
-
-
-
-
+- Multi-label classification (`BCEWithLogitsLoss`)
+- ViT backbone: `google/vit-base-patch16-224`
+- Dataset includes ECGs with and without imperfections
